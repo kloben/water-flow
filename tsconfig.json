@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./temp/",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "module": "es6",
+    "target": "es6"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
