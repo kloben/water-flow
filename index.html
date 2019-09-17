@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>WaterFlow</title>
-    <link href="main.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
 </head>
 <body>
 
-<div id="gridContainer"></div>
-<div>
-    <select id="cursorSelector">
-        <option value="water">Agua</option>
-        <option value="wall">Pared</option>
-        <option value="del">Borrar</option>
-    </select>
+<div id="container">
+    <div id="canvas"></div>
+    <div id="fps-counter">
+        Fps: <span id="fpsCounter"></span>
+    </div>
+    <div id="drawSelector">
+        <div class="option">
+            <img src="assets/water.png">
+        </div>
+        <div class="option">
+            <img src="assets/wall.png">
+        </div>
+        <div class="option">
+            <img src="assets/erase.png">
+        </div>
+    </div>
 </div>
-<div>
-    Fps: <span id="fpsCounter"></span>
-</div>
-<script src="main.js"></script>
+
+
+<script src="dist/bundle.js"></script>
 </body>
 </html>

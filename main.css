@@ -1,4 +1,8 @@
-#gridContainer{
+#container{
+    text-align: center;
+}
+
+#canvas{
     display: inline-block;
     width: 500px;
     height: 500px;
@@ -6,33 +10,65 @@
     font-size: 0;
 }
 
-.cell{
-    display: inline-block;
-    height: 10px;
-    width: 10px;
-    position: relative;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-.cell span.wall{
-    height: 100% !important;
-    background-color: black;
-}
-.cell span{
-    bottom: 0;
-    width: 100%;
-    height: 0;
-    display: block;
-    position: absolute;
-    overflow: hidden;
+#fps-counter{
+    font-size: 13px;
 }
 
-.low{
-    background-color: #00beff;
+#drawSelector{
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
-.med{
-    background-color: #0084ff;
+#drawSelector .option{
+    cursor: pointer;
+    padding: 10px;
 }
-.high {
-    background-color: #004fff;
+#drawSelector .option:hover{
+    background: #ebebeb;
 }
+#drawSelector .option.active{
+    background: #a8a8a8;
+}
+#drawSelector .option img{
+    width: 30px;
+}
+
+
+/*#gridContainer{*/
+/*    display: inline-block;*/
+/*    width: 500px;*/
+/*    height: 500px;*/
+/*    background-color: #c8cfd5;*/
+/*    font-size: 0;*/
+/*}*/
+
+/*.cell{*/
+/*    display: inline-block;*/
+/*    height: 10px;*/
+/*    width: 10px;*/
+/*    position: relative;*/
+/*    cursor: pointer;*/
+/*    box-sizing: border-box;*/
+/*}*/
+/*.cell span.wall{*/
+/*    height: 100% !important;*/
+/*    background-color: black;*/
+/*}*/
+/*.cell span{*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*    height: 0;*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.low{*/
+/*    background-color: #00beff;*/
+/*}*/
+/*.med{*/
+/*    background-color: #0084ff;*/
+/*}*/
+/*.high {*/
+/*    background-color: #004fff;*/
+/*}*/
