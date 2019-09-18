@@ -22,8 +22,8 @@ export class Cell{
 		this.down = down;
 	}
 
-	setFull(){
-		this.currentLoad = 100;
+	setLoad(load:number){
+		this.currentLoad = load;
 		this.updateClass();
 		this.queueDistribution();
 	}
@@ -32,19 +32,27 @@ export class Cell{
 		if(this.currentLoad > 100){
 			this.currentLoad = 100;
 		}
+		else if(this.currentLoad < 0){
+			this.currentLoad = 0;
+		}
 		this.updateClass();
 		this.queueDistribution();
 	}
 	erase(){
 		this.isWall = false;
-		this.node.className = 'cell';
 		this.currentLoad = 0;
-		if(this.timeout){
-			this.timeout = null;
-		}
-		if(this.up){
-			this.up.queueDistribution();
-		}
+		this.updateClass();
+		this.clearTimeout();
+		this.queueSiblings();
+	}
+	setAsWall(){
+		this.isWall = true;
+		this.currentLoad = 0;
+		this.updateClass();
+		this.clearTimeout();
+	}
+	acceptsLoad(){
+		return !this.isWall && this.currentLoad < 100;
 	}
 
 
@@ -56,51 +64,84 @@ export class Cell{
 		if(this.currentLoad === 0){
 			return;
 		}
-		if(this.down && !this.down.isWall && this.down.currentLoad < 100){
+
+		if(this.down && this.down.acceptsLoad()){
 			let quantity = Math.min(100-this.down.currentLoad, this.currentLoad);
 			this.down.addLoad(quantity);
 			this.currentLoad -= quantity;
 			anyChange = true;
 		}
-		if(anyChange){
-			if(this.up){
-				this.up.queueDistribution();
+		if(this.currentLoad){
+			let siblings = [];
+			if(this.right && this.right.acceptsLoad() && this.right.currentLoad < this.currentLoad){
+				siblings.push(this.right);
 			}
-			this.updateClass();
-			this.queueDistribution();
+			if(this.left && this.left.acceptsLoad() && this.left.currentLoad < this.currentLoad){
+				siblings.push(this.left);
+			}
+			if(siblings.length !== 0){
+				let totalLoad = this.currentLoad + siblings.reduce((sum:number, cell:Cell)=>{
+					return sum + cell.currentLoad;
+				}, 0);
+				let splitLoad = Math.floor(totalLoad / (siblings.length+1));
+
+				siblings.forEach((cell:Cell)=>{
+					if(Math.abs(cell.currentLoad-splitLoad) > 2){
+						anyChange = true;
+						cell.setLoad(splitLoad);
+					}
+					totalLoad -= splitLoad;
+				});
+				this.currentLoad = totalLoad;
+			}
 		}
+
+		if(anyChange){
+			this.queueDistribution();
+			this.queueSiblings();
+		}
+		this.updateClass();
 	}
 
 	private timeout:any = null;
 	private queueDistribution(){
 		if(this.timeout === null){
-			this.timeout = setTimeout(this.distribute.bind(this), 100);
+			this.timeout = setTimeout(this.distribute.bind(this), 5);
+		}
+	}
+	private clearTimeout(){
+		if(this.timeout){
+			this.timeout = null;
+		}
+	}
+	private queueSiblings(){
+		if(this.up && !this.up.isWall && this.up.currentLoad){
+			this.up.queueDistribution();
+		}
+		if(this.right && !this.right.isWall && this.right.currentLoad){
+			this.right.queueDistribution();
+		}
+		if(this.left && !this.left.isWall && this.left.currentLoad){
+			this.left.queueDistribution();
 		}
 	}
 
 	private updateClass(){
-		if(this.currentLoad >= 100){
+		if(this.isWall){
+			this.node.className = 'cell wall';
+		}
+		else if(this.currentLoad >= 100){
 			this.node.className = 'cell high';
 		}
 		else if(this.currentLoad > 60){
 			this.node.className = 'cell med';
 		}
-		else if(this.currentLoad === 0){
-			this.node.className = 'cell';
-		}
-		else{
+		else if(this.currentLoad > 0){
 			this.node.className = 'cell low';
 		}
-		this.node.innerText = this.currentLoad.toString();
-	}
-
-
-	setAsWall(){
-		this.isWall = true;
-		this.node.className = 'cell wall';
-		this.currentLoad = 0;
-		if(this.timeout){
-			this.timeout = null;
+		else{
+			this.node.className = 'cell';
 		}
+		// this.node.innerText = this.currentLoad.toString();
 	}
 }

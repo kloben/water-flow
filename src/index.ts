@@ -16,17 +16,17 @@ canvas.onmouseleave = stopDrawing;
 
 let cells: Array<Array<Cell>> = [];
 let currentCell:Cell = null;
+let maxCellRow = 50;
 
-for(let i = 0; i < 50; i++){
+for(let i = 0; i < maxCellRow; i++){
 	let row = [];
 
-	for(let j = 0; j < 50; j++){
+	for(let j = 0; j < maxCellRow; j++){
 		let node = document.createElement('div');
 		node.className = 'cell';
 		canvas.appendChild(node);
 		let cell = new Cell(i, j, node);
 		node.onmouseover = function(){mouseOver(cell);};
-		node.innerText = '0';
 
 		row.push(cell);
 	}
@@ -34,8 +34,8 @@ for(let i = 0; i < 50; i++){
 	cells.push(row);
 }
 
-for(let i = 0; i < 50; i++){
-	for(let j = 0; j < 50; j++){
+for(let i = 0; i < maxCellRow; i++){
+	for(let j = 0; j < maxCellRow; j++){
 		cells[i][j].setSiblings(
 			cells[i][j-1]?cells[i][j-1]:null,
 			cells[i-1]?cells[i-1][j]:null,
@@ -66,7 +66,7 @@ function stopDrawing(){
 function execute(){
 	switch (drawingSelector.currentType) {
 		case DrawingType.WATER:
-			currentCell.setFull();
+			currentCell.setLoad(100);
 			break;
 		case DrawingType.WALL:
 			currentCell.setAsWall();

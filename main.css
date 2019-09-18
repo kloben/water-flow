@@ -43,7 +43,21 @@ body{
     width: 10px;
     position: relative;
     box-sizing: border-box;
-    font-size: 6px;
+}
+.cell.low{
+    background-color: #00beff;
+}
+.cell.med{
+    background-color: #0084ff;
+}
+.cell.high {
+    background-color: #004fff;
+}
+.cell.wall{
+    background-color: #000;
+}
+.cell.red{
+    background-color: #F00;
 }
 
 /*#gridContainer{*/
@@ -68,15 +82,3 @@ body{
 /*    overflow: hidden;*/
 /*}*/
 
-.low{
-    background-color: #00beff;
-}
-.med{
-    background-color: #0084ff;
-}
-.high {
-    background-color: #004fff;
-}
-.wall{
-    background-color: #000;
-}
