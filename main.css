@@ -43,6 +43,7 @@ body{
     width: 10px;
     position: relative;
     box-sizing: border-box;
+    font-size: 6px;
 }
 
 /*#gridContainer{*/

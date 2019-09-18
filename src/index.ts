@@ -26,6 +26,7 @@ for(let i = 0; i < 50; i++){
 		canvas.appendChild(node);
 		let cell = new Cell(i, j, node);
 		node.onmouseover = function(){mouseOver(cell);};
+		node.innerText = '0';
 
 		row.push(cell);
 	}
@@ -36,10 +37,10 @@ for(let i = 0; i < 50; i++){
 for(let i = 0; i < 50; i++){
 	for(let j = 0; j < 50; j++){
 		cells[i][j].setSiblings(
-			cells[i-1]?cells[i-1][j]:null,
 			cells[i][j-1]?cells[i][j-1]:null,
-			cells[i+1]?cells[i+1][j]:null,
+			cells[i-1]?cells[i-1][j]:null,
 			cells[i][j+1]?cells[i][j+1]:null,
+			cells[i+1]?cells[i+1][j]:null
 		);
 	}
 }
