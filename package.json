@@ -2,7 +2,7 @@
   "name": "water-flow",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "demo/main.js",
   "scripts": {
     "webpack": "webpack"
   },
