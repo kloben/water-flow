@@ -6,4 +6,4 @@ This project goal was to achieve the highest performance using only plain JS and
 Resources
 ---------
 
-  * [DEMO](demo/index.html)
+  * [DEMO](http://htmlpreview.github.io/?https://github.com/davidvalgamedios/water-flow/master/demo/index.html)
